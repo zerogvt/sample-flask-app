@@ -13,9 +13,15 @@ spec:
   # Replace 'ENVIRONMENTID' with your environment ID.
   # For instructions on how to determine the environment ID and how to configure the apiUrl address, see https://www.dynatrace.com/support/help/reference/dynatrace-concepts/environment-id/.
   apiUrl: https://nzu34348.live.dynatrace.com/api
-
+  logMonitoring: {}
   metadataEnrichment:
     enabled: true
+
+  templates:
+    logMonitoring:
+      imageRef:
+        repository: public.ecr.aws/dynatrace/dynatrace-logmodule
+        tag: 1.327.49.20251126-150519
 
   oneAgent:
     classicFullStack:
@@ -32,7 +38,6 @@ spec:
       - routing
       - kubernetes-monitoring
       - dynatrace-api
-
     resources:
       requests:
         cpu: 500m

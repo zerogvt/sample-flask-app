@@ -2,6 +2,7 @@
 Docstring for sample-flask-app.app
 '''
 from random import randrange
+import os
 from time import sleep
 from logging.config import dictConfig
 from flask import Flask
@@ -56,6 +57,15 @@ def latency():
     app.logger.info("latency endpoint was reached")
     sleep(sleep_time)
     return f"Latency was {sleep_time}\n", 200
+
+@app.route("/blowup")
+def blowup():
+    rn = randrange(1, 10)
+    app.logger.info("blowup endpoint was reached")
+    if rn > 7:
+        app.logger.info("crashing...")
+        os.kill(os.getppid(), 9)
+    return "Survived blowup\n", 200
 
 
 if __name__ == "__main__":

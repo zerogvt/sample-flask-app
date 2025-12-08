@@ -2,7 +2,7 @@
 Docstring for sample-flask-app.app
 '''
 from random import randrange
-import os
+import sys
 from time import sleep
 from logging.config import dictConfig
 from flask import Flask
@@ -64,7 +64,7 @@ def blowup():
     app.logger.info("blowup endpoint was reached")
     if rn > 7:
         app.logger.info("crashing...")
-        os.kill(os.getppid(), 9)
+        sys.exit(1)
     return "Survived blowup\n", 200
 
 

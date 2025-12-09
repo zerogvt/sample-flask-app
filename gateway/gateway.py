@@ -5,7 +5,9 @@ A sample flask web app that simulates various response codes and latencies.
 from random import randint
 import sys
 from time import sleep
+import uuid
 from logging.config import dictConfig
+import requests
 from flask import Flask
 
 wapp = Flask(__name__)
@@ -73,6 +75,15 @@ def blowup():
         wapp.logger.info("crashing...")
         sys.exit(1)
     return "Survived blowup\n", 200
+
+
+@wapp.route("/transaction")
+def transaction():
+    #url = "http://dydemo-backend-service.default.svc.cluster.local"
+    url = "http://127.0.0.1:5000/"
+    data = {"transaction_id": uuid.uuid1().hex}
+    response = requests.post(url, json=data)
+    return f"{response.text}\n", response.status_code
 
 
 if __name__ == "__main__":

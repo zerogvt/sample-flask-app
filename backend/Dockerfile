@@ -17,12 +17,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Create a non-root user and give ownership of the app directory
-RUN groupadd -r app && useradd -r -g app app \
-	&& chown -R app:app /app
+RUN groupadd -r appgrp && useradd -r -g appgrp appusr \
+	&& chown -R appusr:appgrp /app
 
-USER app
+USER appusr
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app", "--workers", "2"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "backend:wapp", "--workers", "2"]
 

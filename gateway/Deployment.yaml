@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: dydemo-gateway
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: dydemo-gateway
+ template:
+   metadata:
+     labels:
+       app: dydemo-gateway
+   spec:
+     containers:
+     - name: dydemo-gateway-container
+       image: dydemo/gateway:1.0
+       imagePullPolicy: IfNotPresent
+       ports:
+       - containerPort: 5000
+
+---
+# service fronting above deployment
+apiVersion: v1
+kind: Service
+metadata:
+ name: dydemo-gateway-service
+spec:
+ selector:
+   app: dydemo-gateway
+ ports:
+   - protocol: TCP
+     port: 80
+     targetPort: 5000
+ type: NodePort

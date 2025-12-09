@@ -24,5 +24,5 @@ USER appusr
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "backend:wapp", "--workers", "2"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "backend:bapp", "--workers", "2"]
 

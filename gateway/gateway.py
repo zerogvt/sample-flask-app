@@ -79,8 +79,8 @@ def blowup():
 
 @wapp.route("/transaction")
 def transaction():
-    #url = "http://dydemo-backend-service.default.svc.cluster.local"
-    url = "http://127.0.0.1:5000/"
+    url = "http://dydemo-backend-service.default.svc.cluster.local/"
+    #url = "http://127.0.0.1:5000/"
     data = {"transaction_id": uuid.uuid1().hex}
     response = requests.post(url, json=data)
     return f"{response.text}\n", response.status_code

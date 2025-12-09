@@ -1,5 +1,5 @@
 """
-Docstring for sample-flask-app.app
+A sample flask web app that simulates various response codes and latencies.
 """
 
 from random import randint
@@ -8,7 +8,7 @@ from time import sleep
 from logging.config import dictConfig
 from flask import Flask
 
-app = Flask(__name__)
+wapp = Flask(__name__)
 
 
 dictConfig(
@@ -34,25 +34,25 @@ dictConfig(
 )
 
 
-@app.route("/")
+@wapp.route("/")
 def hello_world():
-    app.logger.info("Hello, World! endpoint was reached")
+    wapp.logger.info("Hello, World! endpoint was reached")
     return "Successful response\n", 200
 
 
-@app.route("/server_error")
+@wapp.route("/server_error")
 def server_error():
-    app.logger.info("Server Error endpoint was reached")
+    wapp.logger.info("Server Error endpoint was reached")
     return "Server error\n", 500
 
 
-@app.route("/client_error")
+@wapp.route("/client_error")
 def client_error():
-    app.logger.info("Client Error endpoint was reached")
+    wapp.logger.info("Client Error endpoint was reached")
     return "Client error\n", 400
 
 
-@app.route("/latency")
+@wapp.route("/latency")
 def latency():
     rn = randint(1, 100)
     # 90 percententile latency of 2 seconds
@@ -64,16 +64,16 @@ def latency():
     return f"Latency endpoint {rn}\n", 200
 
 
-@app.route("/blowup")
+@wapp.route("/blowup")
 def blowup():
     rn = randint(1, 10)
-    app.logger.info("blowup endpoint was reached")
+    wapp.logger.info("blowup endpoint was reached")
     # 30% chance to crash
     if rn > 7:
-        app.logger.info("crashing...")
+        wapp.logger.info("crashing...")
         sys.exit(1)
     return "Survived blowup\n", 200
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    wapp.run(debug=True)

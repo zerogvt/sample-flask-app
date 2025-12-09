@@ -24,5 +24,5 @@ USER appusr
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "gateway:app", "--workers", "2"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "gateway:wapp", "--workers", "2"]
 
